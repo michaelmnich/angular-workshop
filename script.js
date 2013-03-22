@@ -25,18 +25,22 @@ workshop.controller('ListCtrl', function($scope) {
     {
       name: "John",
       surname: "Smith",
+      age: 24
     },
     {
       name: "Mark",
       surname: "Lorem",
+      age: 51
     },
     {
       name: "Sally",
       surname: "Ipsum",
+      age: 30
     },
     {
       name: "Frank",
       surname: "Sky",
+      age: 44
     }
   ];
 });
