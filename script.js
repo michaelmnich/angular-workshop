@@ -1,26 +1,34 @@
 // Create a new module
-var workshop = angular.module('workshop', []);
+var workshop = angular.module("workshop", ["ngResource"]);
 
 // Create routes
 workshop.config(function($routeProvider) {
-  $routeProvider.when('/index', {
-      templateUrl: 'views/index.html',
-      controller: 'IndexCtrl'
+  $routeProvider.when("/index", {
+      templateUrl: "views/index.html",
+      controller: "IndexCtrl"
     })
-    .when('/list', {
-      templateUrl: 'views/list.html',
-      controller: 'ListCtrl'
+    .when("/list", {
+      templateUrl: "views/list.html",
+      controller: "ListCtrl"
+    })
+    .when("/product", {
+      templateUrl: "views/product.html",
+      controller: "ProductCtrl"
+    })
+    .when("/product/:productId", {
+      templateUrl: "views/product.html",
+      controller: "ProductCtrl"
     })
     .otherwise({
-    redirectTo: '/index'
-  });
+      redirectTo: "/index"
+    });
 });
 
 // Create controllers
-workshop.controller('IndexCtrl', function($scope) {
+workshop.controller("IndexCtrl", function($scope) {
   $scope.helloMessage = "Hello world";
 });
-workshop.controller('ListCtrl', function($scope) {
+workshop.controller("ListCtrl", function($scope) {
   $scope.list = [
     {
       name: "John",
@@ -43,4 +51,12 @@ workshop.controller('ListCtrl', function($scope) {
       age: 44
     }
   ];
+});
+
+// Create serices
+workshop.factory("Products", function($resource){
+  return $resource("data/products.js", {} )
+});
+workshop.controller("ProductCtrl", function($scope, Products) {
+  $scope.products = Products.query();
 });
